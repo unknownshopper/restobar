@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1220">
+    <title>RestoBar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+            </div>
+            <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="primary-nav">☰</button>
+            <nav id="primary-nav" class="site-nav" aria-label="Principal">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+       
+        <section class="explorar">
+            <h2>Explora lugares</h2>
+            <div class="filters">
+                <label>
+                    Categoría
+                    <select id="category-filter" aria-label="Filtro por categoría">
+                        <option value="todas">Todas</option>
+                    </select>
+                </label>
+                <label class="search">
+                    Buscar
+                    <input id="search-input" type="search" placeholder="Nombre o zona" aria-label="Buscar lugares" />
+                </label>
+                <label>
+                    Precio
+                    <select id="price-filter" aria-label="Filtro por precio">
+                        <option value="todas">Todos</option>
+                        <option value="$">$</option>
+                        <option value="$$">$$</option>
+                        <option value="$$$">$$$</option>
+                    </select>
+                </label>
+                <label>
+                    Precio justo (mín.)
+                    <div class="range">
+                        <input id="fair-filter" type="range" min="0" max="100" step="5" value="80" aria-label="Umbral mínimo de precio justo" />
+                        <span id="fair-value" class="range-value">80%</span>
+                    </div>
+                </label>
+                <label>
+                    Ordenar por
+                    <select id="sort-filter" aria-label="Ordenar por">
+                        <option value="rating_desc">Rating (alto a bajo)</option>
+                        <option value="rating_asc">Rating (bajo a alto)</option>
+                        <option value="price_asc">Precio ($ a $$$)</option>
+                        <option value="price_desc">Precio ($$$ a $)</option>
+                        <option value="name_asc">Nombre (A-Z)</option>
+                    </select>
+                </label>
+            </div>
+            <div id="places-list" class="grid"></div>
+        </section>
+        <section class="panel">
+            <h2>Lugares destacados</h2>
+            <ul id="featured-destacados">
+                <li>Restaurante 1</li>
+                <li>Restaurante 2</li>
+                <li>Restaurante 3</li>
+            </ul>
+        </section>
+        <section class="panel">
+            <h2>Lugares del mes</h2>
+            <ul id="featured-mes">
+                <li>Semana 1</li>
+                <li>Semana 2</li>
+                <li>Semana 3</li>
+                <li>Semana 4</li>
+            </ul>
+        </section>
+        <section class="panel">
+            <h2>Destacados por sabor</h2>
+            <ul id="featured-sabor">
+                <li>Restaurante 1</li>
+                <li>Restaurante 2</li>
+                <li>Restaurante 3</li>
+            </ul>
+        </section>
+        <section class="panel">
+            <h2>Destacados por precio</h2>
+            <ul id="featured-precio">
+                <li>Restaurante 1</li>
+                <li>Restaurante 2</li>
+                <li>Restaurante 3</li>
+            </ul>
+        </section>
+        <section class="panel">
+            <h2>Destacados por ambiente</h2>
+            <ul id="featured-ambiente">
+                <li>Restaurante 1</li>
+                <li>Restaurante 2</li>
+                <li>Restaurante 3</li>
+            </ul>
+        </section>
+        <section class="panel">
+            <h2>Destacados por servicio</h2>
+            <ul id="featured-servicio">
+                <li>Restaurante 1</li>
+                <li>Restaurante 2</li>
+                <li>Restaurante 3</li>
+            </ul>
+        </section>
+        <section class="panel">
+            <h2>Destacados por calidad</h2>
+            <ul id="featured-calidad">
+                <li>Restaurante 1</li>
+                <li>Restaurante 2</li>
+                <li>Restaurante 3</li>
+            </ul>
+        </section>
+
+        <section class="panel">
+            <h2>Área de Servicio</h2>
+            <div class="map-embed">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d69411.44641327813!2d-92.9532307!3d17.992534250000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85edd796d7420653%3A0xf5607b62558ae894!2sVillahermosa%2C%20Tab.!5e1!3m2!1ses-419!2smx!4v1756686889289!5m2!1ses-419!2smx" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div>
+            <h1>RestoBar</h1>
+            <p>RestoBar es una app que califica Restaurantes y Bares en Villahermosa Tabasco.</p>
+        </div>
+        <div>
+            <h2>Metodología</h2>
+            <ul>
+                <li>Mystery Shopper</li>
+                <li>Encuesta a clientes en el lugar</li>
+                <li>Encuesta en lugares de competencia</li>
+                <li>Encuesta en línea a base de datos de clientes otorgada por el cliente</li>
+                <li>Encuesta abierta en <restobar class="mx"></restobar></li>
+
+                <li>Calificaciones en Google</li>
+            </ul>
+            <p>Utilizamos le metodología de mystery shopper para obtener una experiencia anónima y objetiva.</p>
+        </div>
+        <div>
+            <h2>Fuentes de datos</h2>
+            <ul>
+                <li>Google Trends</li>
+                <li>Comentarios y calificaciones en redes sociales</li>
+               
+            </ul>
+        </div>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+        <p>Powered by <a href="https://unknownshoppers.com">The Unknown Shoppers</a></p>
+        <p>Villahermosa Tabasco México CP86000</p>
+
+    </footer>
+    <!-- Modal detalle de negocio -->
+    <div id="modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-backdrop" data-close="true"></div>
+        <div class="modal-dialog" role="document">
+            <button id="modal-close" class="modal-close" aria-label="Cerrar">×</button>
+            <div id="modal-content" class="modal-content">
+                <!-- Contenido dinámico del lugar -->
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
