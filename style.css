@@ -285,6 +285,23 @@ footer {
   min-width: 120px;
 }
 
+.services {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .5rem;
+  color: #475569;
+}
+
+.svc { 
+  font-size: 1.05rem; 
+  line-height: 1; 
+}
+
+.svc.dinein { opacity: .9; }
+.svc.delivery { opacity: .95; }
+.svc.pickup { opacity: .95; }
+
 .card.clickable { 
   cursor: pointer; 
 }

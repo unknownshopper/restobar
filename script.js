@@ -167,6 +167,22 @@ function priceWeight(r) {
   return r === "$" ? 1 : r === "$$" ? 2 : r === "$$$" ? 3 : 0;
 }
 
+// Iconos de servicios accesibles desde todo el archivo
+function serviceIconsHTML(l) {
+  const icons = [];
+  // En salón (por defecto)
+  icons.push(`<span class="svc dinein" title="En salón" aria-label="En salón">🍽️</span>`);
+  // A domicilio
+  if (l.servicioDomicilio) {
+    icons.push(`<span class="svc delivery" title="A domicilio" aria-label="A domicilio">🛵</span>`);
+  }
+  // Pickup (si el dato existe)
+  if (l.pickup) {
+    icons.push(`<span class="svc pickup" title="Pickup" aria-label="Pickup">🛍️</span>`);
+  }
+  return `<div class="services" aria-label="Servicios">${icons.join(" ")}</div>`;
+}
+
 function initExplorar() {
   const select = document.getElementById("category-filter");
   const search = document.getElementById("search-input");
@@ -247,24 +263,6 @@ function initExplorar() {
       </div>`;
   }
 
-  function menuSectionHTML(titulo, items, idBase, limite = 8) {
-    if (!items || !items.length) return "";
-    const count = items.length;
-    const visible = items.slice(0, limite);
-    const hidden = items.slice(limite);
-    const listItems = visible.map((it) => `<li>${it}</li>`).join("");
-    const hiddenItems = hidden.map((it) => `<li class="hidden">${it}</li>`).join("");
-    const hasMore = hidden.length > 0;
-    return `
-      <div class="menu-section" id="${idBase}">
-        <div class="menu-header">
-          <h4>${titulo} <span class="count">(${count})</span></h4>
-          ${hasMore ? `<button class="btn-link" data-toggle="#${idBase}">Ver más</button>` : ""}
-        </div>
-        <ul class="menu-list">${listItems}${hiddenItems}</ul>
-      </div>`;
-  }
-
   function buildCardHTML(l) {
     const badges = (l.categorias || []).map(badgeHTML).join(" ");
     const price = priceBadgeHTML(l.priceRange);
@@ -281,6 +279,7 @@ function initExplorar() {
           <span class="sep">•</span>
           ${price}
         </div>
+        ${serviceIconsHTML(l)}
         ${fairBar}
       </div>`;
   }
@@ -295,7 +294,6 @@ function initExplorar() {
       const card = document.createElement("article");
       card.className = "card clickable";
       card.setAttribute("tabindex", "0");
-      card.setAttribute("role", "button");
       card.dataset.id = String(l.id);
       card.innerHTML = buildCardHTML(l);
       card.addEventListener("click", () => openModal(l));
@@ -472,7 +470,7 @@ function renderFeatured() {
     if (!ul) return;
     ul.innerHTML = items.map(l => `
       <li data-id="${l.id}">
-        <article class="card small">
+        <article class="card clickable small" tabindex="0" role="button" data-id="${l.id}">
           <div class="card-body">
             <h3 class="title">${l.nombre}</h3>
             <div class="meta">
@@ -480,16 +478,25 @@ function renderFeatured() {
               <span class="sep">•</span>
               <span class="rating">⭐ ${(l.rating ?? 0).toFixed(1)}</span>
             </div>
+            ${serviceIconsHTML(l)}
           </div>
         </article>
       </li>`).join("");
     ul.querySelectorAll("li").forEach(li => {
       li.style.cursor = "pointer";
-      li.addEventListener("click", () => {
-        const id = Number(li.getAttribute("data-id"));
+      const id = Number(li.getAttribute("data-id"));
+      const card = li.querySelector('article.card');
+      const open = () => {
         const lugar = lugares.find(x => x.id === id);
         if (lugar) window._openLugarModal && window._openLugarModal(lugar);
-      });
+      };
+      li.addEventListener("click", open);
+      if (card) {
+        card.addEventListener("click", open);
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+        });
+      }
     });
   }
 
